@@ -3,8 +3,6 @@ package com.deci.conj;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
-import java.sql.ResultSet;
-
 public class Tense {
 
 	@Getter
@@ -17,6 +15,7 @@ public class Tense {
 		this.type = type;
 		this.table = new Table();
 	}
+
 
 	@SneakyThrows
 	void load(String infinitive, MoodType mood) {

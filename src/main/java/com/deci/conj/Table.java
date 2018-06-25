@@ -6,14 +6,13 @@ import java.sql.ResultSet;
 
 public class Table {
 
-	private String[] m_singular;
-	private String[] m_plural;
+	private static final byte     SIZE = 3;
+	private              String[] m_singular;
+	private              String[] m_plural;
 
 	Table() {
-		m_singular = new String[3];
-		m_plural = new String[3];
-
-
+		m_singular = new String[SIZE];
+		m_plural = new String[SIZE];
 	}
 
 	@SneakyThrows
@@ -22,16 +21,24 @@ public class Table {
 		ResultSet rs = Database.getStatement().executeQuery(query);
 
 
-		String[] buffer = new String[6];
+		String[] buffer = new String[SIZE * 2];
 		Pronoun[] pronouns = Pronoun.toArray();
 		while (rs.next()) {
 			for (int i = 0; i < pronouns.length; i++) {
 				buffer[i] = rs.getString(pronouns[i].toString());
 			}
 		}
-		System.arraycopy(buffer, 0, m_singular, 0, 3);
-		System.arraycopy(buffer, 3, m_plural, 0, 3);
+		System.arraycopy(buffer, 0, m_singular, 0, SIZE);
+		System.arraycopy(buffer, 3, m_plural, 0, SIZE);
 
+	}
+
+	void set(Pronoun p, String s) {
+		if (p.ordinal() <= 2) {
+			m_singular[p.ordinal()] = s;
+		} else {
+			m_plural[p.ordinal() % SIZE] = s;
+		}
 	}
 
 	String get(Pronoun p) {
@@ -55,6 +62,7 @@ public class Table {
 	@Override
 	public String toString() {
 		AuxStringBuffer sb = new AuxStringBuffer();
+
 		sb.appendLine("yo: %s", get(Pronoun.YO));
 		sb.appendLine("tú: %s", get(Pronoun.TU));
 		sb.appendLine("el, ella, usted: %s", get(Pronoun.EL));

@@ -1,21 +1,30 @@
 package com.deci.conj;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
 
 public class Verb {
 
-	private String infinitive;
-	private String gerund;
-	private String root;
+	@Getter
+	private String   infinitive;
+	@Getter
+	private String   gerund;
+	private String   root;
 	private VerbType type;
-	private vIndicative indicative;
-	private vSubjunctive subjunctive;
-	private vImperative imperative;
+	private Mood     indicative;
+	private Mood     subjunctive;
+	private Mood     imperative;
+	private Mood     continuous;
 
 	@SneakyThrows
 	Verb(String infinitive) {
+		this(infinitive, true);
+	}
+
+	@SneakyThrows
+	private Verb(String infinitive, boolean enableContinuous) {
 		this.infinitive = infinitive;
 		ResultSet rs = Database.getStatement().executeQuery(String.format("select * from gerund where infinitive = '%s'", infinitive));
 		while (rs.next()) {
@@ -29,6 +38,30 @@ public class Verb {
 		this.subjunctive.load(infinitive);
 		this.imperative = new vImperative();
 		this.imperative.load(infinitive);
+		if (enableContinuous) {
+			this.continuous = new vContinuous();
+			this.continuous.load(infinitive);
+		} else {
+			this.continuous = null;
+		}
+	}
+
+	static Verb getEstar() {
+		return new Verb("estar", false);
+	}
+
+	String getConjugation(Pronoun p, MoodType mood, TenseType tense) {
+		switch (mood) {
+			case INDICATIVE:
+				return indicative.getConjugation(p, tense);
+			case SUBJUNCTIVE:
+				return subjunctive.getConjugation(p, tense);
+			case IMP_NEGATIVE:
+				return ((vImperative) imperative).getConjugation(p, MoodType.IMP_NEGATIVE, tense);
+			case IMP_AFFIRMATIVE:
+				return ((vImperative) imperative).getConjugation(p, MoodType.IMP_AFFIRMATIVE, tense);
+		}
+		return "ERROR";
 	}
 
 	private String getRoot() {
@@ -53,6 +86,7 @@ public class Verb {
 		sb.appendLine(indicative);
 		sb.appendLine(subjunctive);
 		sb.appendLine(imperative);
+		sb.appendLine(continuous);
 		return sb.toString();
 	}
 }

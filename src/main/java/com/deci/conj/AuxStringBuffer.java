@@ -7,6 +7,13 @@ class AuxStringBuffer {
 		sb = new StringBuilder();
 	}
 
+	static String repeat(char c, int i) {
+		StringBuilder sb = new StringBuilder();
+		for (int x = 0; x < i; x++)
+			sb.append(c);
+		return sb.toString();
+	}
+
 	AuxStringBuffer append(Object obj) {
 		sb.append(obj);
 		return this;

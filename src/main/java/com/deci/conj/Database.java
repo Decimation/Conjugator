@@ -15,7 +15,7 @@ class Database {
 	private static final String     DB_FILE  = "C:\\Users\\Viper\\Desktop\\data.db";
 	private static       Connection connection;
 	@Getter
-	private static Statement statement;
+	private static       Statement  statement;
 
 
 	static {

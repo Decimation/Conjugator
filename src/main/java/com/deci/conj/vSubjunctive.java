@@ -2,32 +2,24 @@ package com.deci.conj;
 
 import java.util.Arrays;
 
-public class vSubjunctive {
-	private final Tense[] m_tenses;
-	private static final MoodType mood = MoodType.SUBJUNCTIVE;
-	private static final byte SIZE = 6;
+class vSubjunctive extends Mood {
+
 
 	vSubjunctive() {
-		m_tenses = new Tense[SIZE];
+		super(6, MoodType.SUBJUNCTIVE);
 		TenseType[] tenseTypes = (TenseType[]) Arrays.asList(TenseType.PRESENT, TenseType.IMPERFECT, TenseType.FUTURE,
 				TenseType.PRESENT_PERFECT, TenseType.FUTURE_PERFECT, TenseType.PLUPERFECT).toArray();
-		for (int i = 0; i < SIZE; i++)
-			m_tenses[i] = new Tense(tenseTypes[i]);
+		for (int i = 0; i < getSize(); i++)
+			setTense(i, new Tense(tenseTypes[i]));
 	}
 
+	@Override
 	void load(String infinitive) {
-		for (Tense tense : m_tenses) {
-			tense.load(infinitive, mood);
-		}
+		super.loadInternal(infinitive);
 	}
 
 	@Override
 	public String toString() {
-		AuxStringBuffer sb = new AuxStringBuffer();
-		sb.appendLine("Subjunctive").appendLine();
-		for (Tense tense: m_tenses) {
-			sb.appendLine(tense);
-		}
-		return sb.toString();
+		return super.toStringInternal("Subjunctive");
 	}
 }

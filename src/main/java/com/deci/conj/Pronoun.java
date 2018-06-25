@@ -1,9 +1,11 @@
 package com.deci.conj;
 
-import java.util.Arrays;
-
 public enum Pronoun {
 	YO, TU, EL, NOSOTROS, VOSOTROS, ELLOS;
+
+	static Pronoun[] toArray() {
+		return new Pronoun[]{YO, TU, EL, NOSOTROS, VOSOTROS, ELLOS};
+	}
 
 	@Override
 	public String toString() {
@@ -22,9 +24,5 @@ public enum Pronoun {
 				return "form_3p";
 		}
 		return "ERROR";
-	}
-
-	static Pronoun[] toArray() {
-		return new Pronoun[] {YO, TU, EL, NOSOTROS, VOSOTROS, ELLOS};
 	}
 }
