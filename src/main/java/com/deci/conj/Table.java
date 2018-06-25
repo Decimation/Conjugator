@@ -22,7 +22,7 @@ public class Table {
 
 
 		String[] buffer = new String[SIZE * 2];
-		Pronoun[] pronouns = Pronoun.toArray();
+		Pronoun[] pronouns = Pronoun.values();
 		while (rs.next()) {
 			for (int i = 0; i < pronouns.length; i++) {
 				buffer[i] = rs.getString(pronouns[i].toString());

@@ -3,10 +3,6 @@ package com.deci.conj;
 public enum Pronoun {
 	YO, TU, EL, NOSOTROS, VOSOTROS, ELLOS;
 
-	static Pronoun[] toArray() {
-		return new Pronoun[]{YO, TU, EL, NOSOTROS, VOSOTROS, ELLOS};
-	}
-
 	@Override
 	public String toString() {
 		switch (this) {

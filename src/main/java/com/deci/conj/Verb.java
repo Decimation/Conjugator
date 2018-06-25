@@ -86,7 +86,8 @@ public class Verb {
 		sb.appendLine(indicative);
 		sb.appendLine(subjunctive);
 		sb.appendLine(imperative);
-		sb.appendLine(continuous);
+		if (continuous != null)
+			sb.appendLine(continuous);
 		return sb.toString();
 	}
 }

@@ -37,7 +37,7 @@ class vContinuous extends Mood {
 				String estarConj = estar.getConjugation(p, MoodType.INDICATIVE, tenseTypes[i]);
 
 				getTense(i).getTable().set(p, estarConj + " " + gerund);
-				System.out.println(getTense(i).getTable().get(p));
+				//System.out.println(getTense(i).getTable().get(p));
 			}
 			System.out.println();
 
