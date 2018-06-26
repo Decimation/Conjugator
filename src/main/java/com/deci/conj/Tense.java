@@ -25,6 +25,7 @@ public class Tense {
 	@Override
 	public String toString() {
 		AuxStringBuffer sb = new AuxStringBuffer();
+		sb.append("\t\t\t\t");
 		sb.appendLine(type);
 		sb.appendLine(table);
 		return sb.toString();

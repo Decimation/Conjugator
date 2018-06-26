@@ -48,7 +48,7 @@ abstract class Mood {
 
 	final String toStringInternal(String tag) {
 		AuxStringBuffer sb = new AuxStringBuffer();
-		sb.appendLine(tag).appendLine();
+		sb.appendLine("\t\t\t\t" + tag).appendLine();
 		for (Tense tense : m_tenses) {
 			sb.appendLine(tense);
 		}

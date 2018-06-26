@@ -15,6 +15,13 @@ public class Table {
 		m_plural = new String[SIZE];
 	}
 
+
+	private static String[] alignTable() {
+		// +12 chars for the ANSI sequences
+		final int align = 30 + 12;
+		return Common.align(Pronoun.toTableStringArray(), align);
+	}
+
 	@SneakyThrows
 	void load(String infinitive, MoodType mood, TenseType tense) {
 		String query = String.format("select * from verbs where infinitive = '%s' and mood = '%s' and tense = '%s'", infinitive, mood, tense);
@@ -56,19 +63,17 @@ public class Table {
 			case ELLOS:
 				return m_plural[2];
 		}
-		return null;
+		return "ERROR";
 	}
 
 	@Override
 	public String toString() {
 		AuxStringBuffer sb = new AuxStringBuffer();
+		int i = 0;
+		for (String s : alignTable()) {
+			sb.appendLine("%s%-15s", s, get(Pronoun.values()[i++]));
+		}
 
-		sb.appendLine("yo: %s", get(Pronoun.YO));
-		sb.appendLine("tú: %s", get(Pronoun.TU));
-		sb.appendLine("el, ella, usted: %s", get(Pronoun.EL));
-		sb.appendLine("nosotros: %s", get(Pronoun.NOSOTROS));
-		sb.appendLine("vosotros: %s", get(Pronoun.VOSOTROS));
-		sb.appendLine("ellos, ellas, ustedes: %s", get(Pronoun.ELLOS));
 		return sb.toString();
 	}
 }

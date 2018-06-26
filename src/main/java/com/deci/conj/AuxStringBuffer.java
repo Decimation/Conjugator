@@ -7,12 +7,6 @@ class AuxStringBuffer {
 		sb = new StringBuilder();
 	}
 
-	static String repeat(char c, int i) {
-		StringBuilder sb = new StringBuilder();
-		for (int x = 0; x < i; x++)
-			sb.append(c);
-		return sb.toString();
-	}
 
 	AuxStringBuffer append(Object obj) {
 		sb.append(obj);
@@ -29,12 +23,19 @@ class AuxStringBuffer {
 		return this;
 	}
 
-	AuxStringBuffer append(String str, Object obj) {
+	AuxStringBuffer append(String str, Object... obj) {
 		sb.append(String.format(str, obj));
 		return this;
 	}
 
-	AuxStringBuffer appendLine(String str, Object obj) {
+
+	// Aligns %-15s implicitly
+	AuxStringBuffer appendLineBoldAlign(String str, int align, Object obj) {
+
+		return appendLine("%s%-15s", Common.align(Common.boldStr(str), align), obj);
+	}
+
+	AuxStringBuffer appendLine(String str, Object... obj) {
 		append(str, obj).append('\n');
 		return this;
 	}
