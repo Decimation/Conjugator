@@ -4,7 +4,6 @@ import lombok.Getter;
 
 abstract class Mood {
 
-	private static final String   ERROR = "ERROR";
 	private final        Tense[]  m_tenses;
 	@Getter
 	private final        int      size;
@@ -26,7 +25,7 @@ abstract class Mood {
 				return t.getTable().get(p);
 			}
 		}
-		return ERROR;
+		return Common.ERROR;
 	}
 
 	abstract void load(String infinitive);

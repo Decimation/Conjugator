@@ -7,9 +7,9 @@ class vIndicative extends Mood {
 	vIndicative() {
 		super(10, MoodType.INDICATIVE);
 
-		TenseType[] tenseTypes = (TenseType[]) Arrays.asList(TenseType.PRESENT, TenseType.FUTURE, TenseType.IMPERFECT, TenseType.PRETERITE,
+		TenseType[] tenseTypes = {TenseType.PRESENT, TenseType.FUTURE, TenseType.IMPERFECT, TenseType.PRETERITE,
 				TenseType.CONDITIONAL, TenseType.PRESENT_PERFECT, TenseType.FUTURE_PERFECT, TenseType.PLUPERFECT,
-				TenseType.PRETERITE_PERFECT, TenseType.CONDITIONAL_PERFECT).toArray();
+				TenseType.PRETERITE_PERFECT, TenseType.CONDITIONAL_PERFECT};
 		for (int i = 0; i < getSize(); i++)
 			setTense(i, new Tense(tenseTypes[i]));
 	}

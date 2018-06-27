@@ -19,6 +19,6 @@ public enum MoodType {
 			case SUBJUNCTIVE:
 				return "Subjuntivo";
 		}
-		return "ERROR";
+		return Common.ERROR;
 	}
 }

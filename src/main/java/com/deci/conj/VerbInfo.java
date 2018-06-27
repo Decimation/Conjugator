@@ -11,7 +11,7 @@ class VerbInfo {
 
 	@Getter
 	@Setter
-	private String futureStem;
+	private String futureConditionalStem;
 
 	@Getter
 	@Setter
@@ -20,6 +20,14 @@ class VerbInfo {
 	@Getter
 	@Setter
 	private String subjunctiveStem;
+
+	@Getter
+	@Setter
+	private StemChange stemChange;
+
+	@Getter
+	@Setter
+	private StemChange preteriteOrthographicChange;
 
 
 	VerbInfo(VerbType type, boolean isReflexive) {
@@ -36,13 +44,15 @@ class VerbInfo {
 		AuxStringBuffer sb = new AuxStringBuffer();
 		//sb.appendLine(Common.align(Common.boldStr("Type: %-15s"), 12 + 30), type);
 		//sb.appendLine(Common.align(Common.boldStr("Reflexive: %-15s"), 12 + 30),isReflexive ? "yes" : "no", type);
-		final int align = 30 + 12;
 
-		sb.appendLineBoldAlign("Type: ",align, type);
-		sb.appendLineBoldAlign("Reflexive: ", align, isReflexive ? "yes" : "no");
-		sb.appendLineBoldAlign("Future stem: ", align, futureStem);
-		sb.appendLineBoldAlign("Preterite stem: ", align, preteriteStem);
-		sb.appendLineBoldAlign("Subjunctive stem: ", align, subjunctiveStem);
+
+		sb.appendLineBoldAlign("Type: ", Common.ALIGN, type);
+		sb.appendLineBoldAlign("Reflexive: ", Common.ALIGN, isReflexive ? "yes" : "no");
+		sb.appendLineBoldAlign("Future/Conditional stem: ", Common.ALIGN, futureConditionalStem);
+		sb.appendLineBoldAlign("Preterite stem: ", Common.ALIGN, preteriteStem);
+		sb.appendLineBoldAlign("Subjunctive stem: ", Common.ALIGN, subjunctiveStem);
+		sb.appendLineBoldAlign("Stem change: ", Common.ALIGN, stemChange == null ? "-" : stemChange);
+		sb.appendLineBoldAlign("Preterite orthogfx change: ", Common.ALIGN, preteriteOrthographicChange == null ? "-" : preteriteOrthographicChange);
 
 		return sb.toString();
 	}

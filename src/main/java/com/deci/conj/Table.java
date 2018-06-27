@@ -17,9 +17,7 @@ public class Table {
 
 
 	private static String[] alignTable() {
-		// +12 chars for the ANSI sequences
-		final int align = 30 + 12;
-		return Common.align(Pronoun.toTableStringArray(), align);
+		return Common.align(Pronoun.toTableStringArray(), Common.ALIGN);
 	}
 
 	@SneakyThrows
@@ -32,7 +30,7 @@ public class Table {
 		Pronoun[] pronouns = Pronoun.values();
 		while (rs.next()) {
 			for (int i = 0; i < pronouns.length; i++) {
-				buffer[i] = rs.getString(pronouns[i].toString());
+				buffer[i] = rs.getString(pronouns[i].toSQLString());
 			}
 		}
 		System.arraycopy(buffer, 0, m_singular, 0, SIZE);

@@ -13,7 +13,9 @@ import java.nio.channels.ReadableByteChannel;
 class Common {
 	private static final String ANSI_BOLD  = "\033[0;1m";
 	private static final String ANSI_CLOSE = "\033[0;0m";
-
+	static final String ERROR = "ERROR";
+	// +12 for ANSI
+	static final int ALIGN = 30 + 12;
 	private Common() {
 	}
 
@@ -36,6 +38,11 @@ class Common {
 		return out;
 	}
 
+	static String unbold(String s) {
+		assert s.contains(ANSI_BOLD) && s.contains(ANSI_CLOSE);
+		return s.replace(ANSI_BOLD, "").replace(ANSI_CLOSE, "");
+	}
+
 	static String boldStr(String s) {
 		return ANSI_BOLD + s + ANSI_CLOSE;
 	}
@@ -45,6 +52,13 @@ class Common {
 		for (int x = 0; x < i; x++)
 			sb.append(c);
 		return sb.toString();
+	}
+
+	static boolean endsWithAny(String s, String... arr) {
+		for (String x : arr) {
+			if (s.endsWith(x)) return true;
+		}
+		return false;
 	}
 
 	@SneakyThrows
@@ -66,6 +80,8 @@ class Common {
 
 		System.out.println();
 	}
+
+
 
 	static String[] toStringArray(Object[] obj) {
 		String[] arr = new String[obj.length];

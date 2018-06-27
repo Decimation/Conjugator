@@ -12,8 +12,8 @@ class vContinuous extends Mood {
 	vContinuous() {
 		super(5);
 
-		tenseTypes = (TenseType[]) Arrays.asList(TenseType.PRESENT, TenseType.PRETERITE, TenseType.IMPERFECT, TenseType.CONDITIONAL,
-				TenseType.FUTURE).toArray();
+		tenseTypes = new TenseType[]{TenseType.PRESENT, TenseType.PRETERITE, TenseType.IMPERFECT, TenseType.CONDITIONAL,
+				TenseType.FUTURE};
 		for (int i = 0; i < getSize(); i++)
 			setTense(i, new Tense(tenseTypes[i]));
 

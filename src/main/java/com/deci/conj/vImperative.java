@@ -9,7 +9,7 @@ public class vImperative extends Mood {
 
 	vImperative() {
 		super(2);
-		TenseType[] tenseTypes = (TenseType[]) Arrays.asList(TenseType.PRESENT, TenseType.PRESENT).toArray();
+		TenseType[] tenseTypes = {TenseType.PRESENT, TenseType.PRESENT};
 		for (int i = 0; i < getSize(); i++)
 			setTense(i, new Tense(tenseTypes[i]));
 	}
@@ -26,7 +26,7 @@ public class vImperative extends Mood {
 					return getTense(0).getTable().get(p);
 				}
 			default:
-				return "ERROR";
+				return Common.ERROR;
 		}
 	}
 
@@ -42,7 +42,7 @@ public class vImperative extends Mood {
 		String queryAffirm = String.format("select * from verbs where infinitive = '%s' and mood = '%s' and tense = '%s'", infinitive, MoodType.SUBJUNCTIVE, TenseType.PRESENT);
 
 		ResultSet rs = Database.getStatement().executeQuery(queryAffirm);
-		String subjNosotros = rs.getString(Pronoun.NOSOTROS.toString());
+		String subjNosotros = rs.getString(Pronoun.NOSOTROS.toSQLString());
 		getTense(0).getTable().set(Pronoun.NOSOTROS, subjNosotros);
 		getTense(1).getTable().set(Pronoun.NOSOTROS, "no " + subjNosotros);
 		for (int i = 0; i < getSize(); i++) {

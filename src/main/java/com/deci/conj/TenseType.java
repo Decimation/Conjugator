@@ -31,7 +31,7 @@ public enum TenseType {
 			case CONDITIONAL_PERFECT:
 				return "Condicional perfecto";
 		}
-		return "ERROR";
+		return Common.ERROR;
 	}
 
 
