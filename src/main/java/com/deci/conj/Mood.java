@@ -1,24 +1,32 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.Common;
+import com.deci.razorcommon.RazorStringBuffer;
+import lombok.AccessLevel;
 import lombok.Getter;
 
-abstract class Mood {
+public abstract class Mood {
 
-	private final        Tense[]  m_tenses;
-	@Getter
-	private final        int      size;
-	private final        MoodType mood;
+	//region Fields
+	private final Tense[]  m_tenses;
+	@Getter(AccessLevel.PACKAGE)
+	private final int      size;
+	private final MoodType mood;
+	//endregion
 
-	Mood(int size) {
+	//region Constructors
+	public Mood(int size) {
 		this(size, null);
 	}
 
-	Mood(int size, MoodType mood) {
+	public Mood(int size, MoodType mood) {
 		this.size = size;
 		m_tenses = new Tense[size];
 		this.mood = mood;
 	}
+	//endregion
 
+	//region Methods
 	final String getConjugation(Pronoun p, TenseType tense) {
 		for (Tense t : m_tenses) {
 			if (t.getType() == tense) {
@@ -29,9 +37,9 @@ abstract class Mood {
 	}
 
 	abstract void load(String infinitive);
-	//abstract String getConjugation(Pronoun p, MoodType mood, TenseType tense);
 
 	final void loadInternal(String infinitive) {
+
 		for (Tense tense : m_tenses) {
 			tense.load(infinitive, mood);
 		}
@@ -46,11 +54,12 @@ abstract class Mood {
 	}
 
 	final String toStringInternal(String tag) {
-		AuxStringBuffer sb = new AuxStringBuffer();
+		RazorStringBuffer sb = new RazorStringBuffer();
 		sb.appendLine("\t\t\t\t" + tag).appendLine();
 		for (Tense tense : m_tenses) {
 			sb.appendLine(tense);
 		}
 		return sb.toString();
 	}
+	//endregion
 }

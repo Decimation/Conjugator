@@ -1,5 +1,7 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.Common;
+import com.deci.razorcommon.RazorStringBuffer;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
@@ -17,13 +19,13 @@ public class Table {
 
 
 	private static String[] alignTable() {
-		return Common.align(Pronoun.toTableStringArray(), Common.ALIGN);
+		return Common.align(Pronoun.toTableStringArray());
 	}
 
 	@SneakyThrows
 	void load(String infinitive, MoodType mood, TenseType tense) {
 		String query = String.format("select * from verbs where infinitive = '%s' and mood = '%s' and tense = '%s'", infinitive, mood, tense);
-		ResultSet rs = Database.getStatement().executeQuery(query);
+		ResultSet rs = SQLDatabase.getStatement().executeQuery(query);
 
 
 		String[] buffer = new String[SIZE * 2];
@@ -61,12 +63,12 @@ public class Table {
 			case ELLOS:
 				return m_plural[2];
 		}
-		return "ERROR";
+		return Common.ERROR;
 	}
 
 	@Override
 	public String toString() {
-		AuxStringBuffer sb = new AuxStringBuffer();
+		RazorStringBuffer sb = new RazorStringBuffer();
 		int i = 0;
 		for (String s : alignTable()) {
 			sb.appendLine("%s%-15s", s, get(Pronoun.values()[i++]));

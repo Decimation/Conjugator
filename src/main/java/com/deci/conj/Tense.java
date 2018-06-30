@@ -1,5 +1,6 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.RazorStringBuffer;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
@@ -24,7 +25,7 @@ public class Tense {
 
 	@Override
 	public String toString() {
-		AuxStringBuffer sb = new AuxStringBuffer();
+		RazorStringBuffer sb = new RazorStringBuffer();
 		sb.append("\t\t\t\t");
 		sb.appendLine(type);
 		sb.appendLine(table);

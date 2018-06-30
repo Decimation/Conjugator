@@ -1,37 +1,64 @@
 package com.deci.conj;
 
-class StemChange {
+import lombok.Getter;
 
+public class StemChange {
+
+	//region Fields
 	private final String _old;
 	private final String _new;
 
+	@Getter
 	private final Pronoun[] pronouns;
+
+	@Getter
+	private final TenseType tense;
+	//endregion
+
+	//region Constructors
 
 	/**
 	 * If no pronoun is specified, it is implied the change applies to all
-	 * subjects
+	 * subjects (excluding vosotros, nosotros in present)
 	 */
 	StemChange(String _old, String _new) {
-		this(_old, _new, (Pronoun[]) null);
+		this(_old, _new, TenseType.PRESENT, (Pronoun[]) null);
 	}
 
-
-	StemChange(String _old, String _new, Pronoun... pronouns) {
+	StemChange(String _old, String _new, TenseType tense, Pronoun... pronouns) {
 		this._old = _old;
 		this._new = _new;
+		this.tense = tense;
 		this.pronouns = pronouns;
+
 	}
 
-	String getOld() {
+	StemChange(String _new, Pronoun pronoun) {
+		this(null, _new, TenseType.PRESENT, pronoun);
+	}
+	//endregion
+
+	//region Properties
+	public String getOld() {
 		return _old;
 	}
 
-	String getNew() {
+	public String getNew() {
 		return _new;
 	}
+	//endregion
+
+
+	public String toWebString() {
+		if (pronouns != null && pronouns[0] == Pronoun.YO) {
+			return String.format("-%s", _new);
+		}
+		return String.format("%s-%s", _old, _new);
+	}
+
+	//region Overrides
 
 	// Doesn't compare pronouns
-
 	@Override
 	public boolean equals(Object obj) {
 		if (obj.getClass().equals(getClass())) {
@@ -43,9 +70,14 @@ class StemChange {
 
 	@Override
 	public String toString() {
+		if (_old == null) {
+			return String.format("-%s (%s)", _new, Pronoun.aggregate(pronouns));
+		}
 		if (pronouns != null) {
 			return String.format("%s -> %s (%s)", _old, _new, Pronoun.aggregate(pronouns));
 		}
+
 		return String.format("%s -> %s", _old, _new);
 	}
+	//endregion
 }

@@ -1,7 +1,11 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.Common;
+import com.deci.razorcommon.RazorStringBuffer;
+
 public enum Pronoun {
 	YO, TU, EL, NOSOTROS, VOSOTROS, ELLOS;
+
 
 	static String[] toTableStringArray() {
 		final Pronoun[] pronouns = values();
@@ -12,7 +16,7 @@ public enum Pronoun {
 	}
 
 	static String aggregate(Pronoun[] pronouns) {
-		AuxStringBuffer sb = new AuxStringBuffer();
+		RazorStringBuffer sb = new RazorStringBuffer();
 		String[] arr = Common.toStringArray(pronouns);
 		String[] strippedBold = new String[arr.length];
 		for (int x = 0; x < arr.length; x++) {

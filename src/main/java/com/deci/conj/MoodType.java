@@ -1,10 +1,11 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.Common;
 import lombok.SneakyThrows;
 
 public enum MoodType {
-	INDICATIVE, SUBJUNCTIVE, IMP_AFFIRMATIVE, IMP_NEGATIVE;
 
+	INDICATIVE, SUBJUNCTIVE, IMP_AFFIRMATIVE, IMP_NEGATIVE;
 
 	@SneakyThrows
 	@Override

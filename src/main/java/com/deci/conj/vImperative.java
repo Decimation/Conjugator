@@ -1,9 +1,10 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.Common;
+import com.deci.razorcommon.RazorLogger;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
-import java.util.Arrays;
 
 public class vImperative extends Mood {
 
@@ -33,6 +34,7 @@ public class vImperative extends Mood {
 	@Override
 	@SneakyThrows
 	void load(String infinitive) {
+		RazorLogger.out("vImperative", "loading %s", infinitive);
 		getTense(0).load(infinitive, MoodType.IMP_AFFIRMATIVE);
 		getTense(1).load(infinitive, MoodType.IMP_NEGATIVE);
 
@@ -41,8 +43,13 @@ public class vImperative extends Mood {
 		// Imperative nosotros
 		String queryAffirm = String.format("select * from verbs where infinitive = '%s' and mood = '%s' and tense = '%s'", infinitive, MoodType.SUBJUNCTIVE, TenseType.PRESENT);
 
-		ResultSet rs = Database.getStatement().executeQuery(queryAffirm);
-		String subjNosotros = rs.getString(Pronoun.NOSOTROS.toSQLString());
+		String subjNosotros = "";
+
+		ResultSet rs = SQLDatabase.getStatement().executeQuery(queryAffirm);
+		//assert !rs.isClosed();
+		subjNosotros = rs.getString(Pronoun.NOSOTROS.toSQLString());
+
+
 		getTense(0).getTable().set(Pronoun.NOSOTROS, subjNosotros);
 		getTense(1).getTable().set(Pronoun.NOSOTROS, "no " + subjNosotros);
 		for (int i = 0; i < getSize(); i++) {

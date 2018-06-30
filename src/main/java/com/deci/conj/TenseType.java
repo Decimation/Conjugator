@@ -1,10 +1,11 @@
 package com.deci.conj;
 
+import com.deci.razorcommon.Common;
+
 public enum TenseType {
 	PRESENT, FUTURE, IMPERFECT, PRETERITE, CONDITIONAL,
 	PRESENT_PERFECT, FUTURE_PERFECT, PLUPERFECT, PRETERITE_PERFECT,
 	CONDITIONAL_PERFECT;
-
 
 
 	@Override
